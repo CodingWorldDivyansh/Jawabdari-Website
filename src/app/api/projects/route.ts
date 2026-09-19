@@ -3,6 +3,8 @@ import rawData from '@/lib/data/ludhiana-dataset.json';
 import { Project, FilterState } from '@/lib/types';
 import { filterProjects } from '@/lib/store';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   

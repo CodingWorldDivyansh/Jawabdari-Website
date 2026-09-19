@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import rawData from '@/lib/data/ludhiana-dataset.json';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const search = searchParams.get('search')?.toLowerCase();
