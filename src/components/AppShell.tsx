@@ -2,35 +2,38 @@
 
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './Navbar';
-import { AddRecordModal } from './AddRecordModal';
+import { ExportModal } from './ExportModal';
 import { Dataset } from '@/lib/types';
-import { getDataset, exportProjectsToCSV } from '@/lib/store';
+import { getDataset } from '@/lib/store';
 
 interface AppShellProps {
-  children: (props: { dataset: Dataset; setDataset: React.Dispatch<React.SetStateAction<Dataset>> }) => React.ReactNode;
+  children: (props: { 
+    dataset: Dataset; 
+    setDataset: React.Dispatch<React.SetStateAction<Dataset>>;
+    onOpenExportModal: () => void;
+  }) => React.ReactNode;
 }
 
 export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [dataset, setDataset] = useState<Dataset>(() => getDataset());
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   useEffect(() => {
     setDataset(getDataset());
   }, []);
 
-  const handleExportCsv = () => {
-    exportProjectsToCSV(dataset.projects);
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#0B1B2F]">
       <Navbar
-        onOpenAddModal={() => setIsAddModalOpen(true)}
-        onExportCsv={handleExportCsv}
+        onExportCsv={() => setIsExportModalOpen(true)}
       />
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6">
-        {children({ dataset, setDataset })}
+        {children({ 
+          dataset, 
+          setDataset,
+          onOpenExportModal: () => setIsExportModalOpen(true)
+        })}
       </main>
 
       <footer className="border-t border-[#E6EAF0] py-6 text-xs text-[#0B1B2F]/70">
@@ -50,11 +53,10 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
         </div>
       </footer>
 
-      <AddRecordModal
+      <ExportModal
         dataset={dataset}
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onDataUpdated={(newD) => setDataset(newD)}
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
       />
     </div>
   );

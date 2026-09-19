@@ -140,7 +140,7 @@ export function filterProjects(projects: Project[], filters: FilterState): Proje
   });
 }
 
-export function exportProjectsToCSV(projects: Project[]): void {
+export function exportProjectsToCSV(projects: Project[], customFilename?: string): void {
   const headers = [
     'Work ID',
     'Title',
@@ -153,7 +153,10 @@ export function exportProjectsToCSV(projects: Project[]): void {
     'Status',
     'Date Awarded',
     'Date Completed',
+    'Planned Completion Date',
+    'Tender Stage',
     'Total Paid (INR)',
+    'Installment Count',
     'Location'
   ];
 
@@ -169,7 +172,10 @@ export function exportProjectsToCSV(projects: Project[]): void {
     `"${p.status}"`,
     `"${p.dateAwarded ? p.dateAwarded.split('T')[0] : ''}"`,
     `"${p.dateCompleted ? p.dateCompleted.split('T')[0] : ''}"`,
-    p.totalPaid,
+    `"${p.plannedCompletionDate ? p.plannedCompletionDate.split('T')[0] : ''}"`,
+    `"${p.tenderStage || ''}"`,
+    p.totalPaid || 0,
+    p.paymentCount || (p.installments ? p.installments.length : 0),
     `"${p.location.replace(/"/g, '""')}"`
   ]);
 
@@ -177,7 +183,96 @@ export function exportProjectsToCSV(projects: Project[]): void {
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `ludhiana_projects_${new Date().toISOString().split('T')[0]}.csv`);
+  const filename = customFilename || `jawabdari_projects_${new Date().toISOString().split('T')[0]}.csv`;
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export function exportMlasToCSV(mlas: MLA[], customFilename?: string): void {
+  const headers = [
+    'MLA Name',
+    'Constituency',
+    'Political Party',
+    'Term',
+    'Contact',
+    'Total Projects',
+    'Completed Projects (10-Yr)',
+    'Ongoing Projects',
+    'Planned Projects',
+    'Total Sanctioned Amount (INR)',
+    'Total Expenditure (INR)',
+    'Utilization Percentage (%)',
+    'Contractors Count',
+    'Primary Contractors'
+  ];
+
+  const rows = mlas.map(m => [
+    `"${m.name.replace(/"/g, '""')}"`,
+    `"${m.constituency}"`,
+    `"${m.party}"`,
+    `"${m.term}"`,
+    `"${m.contact}"`,
+    m.totalProjects,
+    m.completedProjects,
+    m.ongoingProjects,
+    m.plannedProjects,
+    m.totalSanctionedAmount,
+    m.totalExpenditure,
+    `${m.utilizationPercentage}%`,
+    m.contractorsCount,
+    `"${(m.topContractors || []).join('; ').replace(/"/g, '""')}"`
+  ]);
+
+  const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  const filename = customFilename || `jawabdari_mlas_directory_${new Date().toISOString().split('T')[0]}.csv`;
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export function exportContractorsToCSV(contractors: Contractor[], customFilename?: string): void {
+  const headers = [
+    'Contractor / Firm Name',
+    'Specialty / Trade',
+    'District',
+    'State',
+    'Rating (out of 5)',
+    'Total Projects',
+    'Completed Projects (10-Yr)',
+    'Ongoing Projects',
+    'Planned Projects',
+    'Total Value Awarded (INR)',
+    'Constituencies Served',
+    'Associated MLAs'
+  ];
+
+  const rows = contractors.map(c => [
+    `"${c.name.replace(/"/g, '""')}"`,
+    `"${c.specialty.replace(/"/g, '""')}"`,
+    `"${c.district}"`,
+    `"${c.state}"`,
+    c.rating,
+    c.totalProjects,
+    c.completedProjects,
+    c.ongoingProjects,
+    c.plannedProjects,
+    c.totalValue,
+    `"${(c.constituencies || []).join('; ').replace(/"/g, '""')}"`,
+    `"${(c.mlas || []).join('; ').replace(/"/g, '""')}"`
+  ]);
+
+  const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  const filename = customFilename || `jawabdari_contractors_directory_${new Date().toISOString().split('T')[0]}.csv`;
+  link.setAttribute('download', filename);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

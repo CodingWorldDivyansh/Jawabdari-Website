@@ -1,11 +1,10 @@
-'use client';
-
 import React, { useState, useMemo } from 'react';
 import { 
   MapPin, 
   Search, 
   SlidersHorizontal, 
-  Layers
+  Layers,
+  Download
 } from 'lucide-react';
 import { Dataset, Project, MLA, Contractor, FilterState } from '@/lib/types';
 import { filterProjects } from '@/lib/store';
@@ -14,6 +13,8 @@ import { ProjectCard } from './ProjectCard';
 import { PaymentModal } from './PaymentModal';
 import { MlaModal } from './MlaModal';
 import { ContractorModal } from './ContractorModal';
+import { SourcesBanner } from './SourcesBanner';
+import { ExportModal } from './ExportModal';
 
 interface TrackAreaProps {
   dataset: Dataset;
@@ -45,6 +46,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
 
   const [showFiltersPanel, setShowFiltersPanel] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
 
   // Modals
   const [selectedPaymentProject, setSelectedPaymentProject] = useState<Project | null>(null);
@@ -137,11 +139,20 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
       if (p.dateCompleted) years.add(new Date(p.dateCompleted).getFullYear().toString());
       if (p.plannedCompletionDate) years.add(new Date(p.plannedCompletionDate).getFullYear().toString());
     });
-    return Array.from(years).sort().reverse();
+    return Array.from(years)
+      .filter(y => parseInt(y, 10) <= 2026)
+      .sort()
+      .reverse();
   }, [dataset.projects]);
 
   return (
     <div className="max-w-6xl mx-auto">
+      {/* 0. Official Sources & Audit Banner */}
+      <SourcesBanner
+        totalProjects={dataset.projects.length}
+        totalContractors={dataset.contractors.length}
+      />
+
       {/* 1. Track Area Header (Original Empowered Indian Style) */}
       <div className="track-area-header">
         <div className="header-icon">
@@ -219,7 +230,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
               }}
               className={`tab-btn ${filters.status === 'Planned' ? 'active' : ''}`}
             >
-              Planned / Upcoming ({plannedCount})
+              Planned ({plannedCount})
             </button>
             <button
               type="button"
@@ -229,7 +240,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
               }}
               className={`tab-btn ${filters.status === 'In Progress' ? 'active' : ''}`}
             >
-              Ongoing Works ({ongoingCount})
+              Ongoing ({ongoingCount})
             </button>
             <button
               type="button"
@@ -239,7 +250,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
               }}
               className={`tab-btn ${filters.status === 'Completed' ? 'active' : ''}`}
             >
-              Completed (Past 10 Yrs) ({completedCount})
+              Completed ({completedCount})
             </button>
           </div>
 
@@ -297,11 +308,21 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
                 }}
               />
             </div>
+
+            <button
+              type="button"
+              onClick={() => setIsExportModalOpen(true)}
+              className="export-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] hover:bg-[#E56E00] transition-colors shrink-0 shadow-sm ml-auto cursor-pointer"
+              title="Export filtered or custom works data"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Export ({filteredProjects.length})</span>
+            </button>
           </div>
 
           {showFiltersPanel && (
             <div className="filters-panel">
-              <div className="filter-group">
+              <div className="filter-group min-w-[150px]">
                 <label>Category</label>
                 <select
                   value={filters.category}
@@ -317,7 +338,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
                 </select>
               </div>
 
-              <div className="filter-group">
+              <div className="filter-group min-w-[110px]">
                 <label>Year</label>
                 <select
                   value={filters.year}
@@ -333,7 +354,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
                 </select>
               </div>
 
-              <div className="filter-group">
+              <div className="filter-group min-w-[180px] max-w-[220px]">
                 <label>Contractor</label>
                 <select
                   value={filters.contractor}
@@ -341,7 +362,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
                     setFilters(prev => ({ ...prev, contractor: e.target.value }));
                     setCurrentPage(1);
                   }}
-                  className="max-w-xs truncate"
+                  className="w-full truncate"
                 >
                   <option value="all">All Contractors ({dataset.contractors.length})</option>
                   {dataset.contractors.map(c => (
@@ -350,7 +371,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
                 </select>
               </div>
 
-              <div className="filter-group cost-range-group">
+              <div className="filter-group cost-range-group flex-1 min-w-[180px] max-w-[240px]">
                 <label>
                   <span>Max Project Cost</span>
                   <strong className="text-[#0B1B2F] font-bold tabular-nums">
@@ -374,7 +395,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="clear-filters-btn"
+                className="clear-filters-btn shrink-0 ml-auto"
               >
                 Clear All
               </button>
@@ -510,6 +531,19 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
           }}
         />
       )}
+
+      {/* Export Modal */}
+      <ExportModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        dataset={dataset}
+        filteredProjects={filteredProjects}
+        currentFiltersDesc={
+          filters.constituency !== 'all' || filters.status !== 'all' || filters.category !== 'all'
+            ? `${filters.constituency !== 'all' ? filters.constituency : 'All Constituencies'} • ${filters.status !== 'all' ? filters.status : 'All Statuses'} • ${filters.category !== 'all' ? filters.category : 'All Categories'}`
+            : undefined
+        }
+      />
     </div>
   );
 };

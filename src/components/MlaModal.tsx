@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Download } from 'lucide-react';
 import { MLA, Project } from '@/lib/types';
 import { formatRupee, formatDate } from '@/lib/formatters';
+import { exportProjectsToCSV } from '@/lib/store';
 
 interface MlaModalProps {
   mla: MLA | null;
@@ -29,10 +30,15 @@ export const MlaModal: React.FC<MlaModalProps> = ({
     ? mlaProjects 
     : mlaProjects.filter(p => p.status === activeTab);
 
+  const handleExportMlaWorks = () => {
+    const slug = mla.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    exportProjectsToCSV(mlaProjects, `jawabdari_mla_${slug}_works_${new Date().toISOString().split('T')[0]}.csv`);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
       <div 
-        className="relative w-full max-w-2xl bg-white rounded-lg shadow-xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-2xl bg-white rounded-lg shadow-xl border border-[#E6EAF0] overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -44,12 +50,22 @@ export const MlaModal: React.FC<MlaModalProps> = ({
             <h3 className="text-lg font-bold text-[#0B1B2F] leading-snug">{mla.name}</h3>
             <p className="text-xs text-[#0B1B2F]/60 mt-0.5">{mla.term} • {mla.contact}</p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1 text-[#0B1B2F]/50 hover:text-[#0B1B2F] rounded transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleExportMlaWorks}
+              className="inline-flex items-center space-x-1 px-2.5 py-1 text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] rounded hover:bg-[#e66e00] transition-colors cursor-pointer shadow-xs"
+              title="Download all works for this MLA as CSV"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Export Works ({mlaProjects.length})</span>
+            </button>
+            <button
+              onClick={onClose}
+              className="p-1 text-[#0B1B2F]/50 hover:text-[#0B1B2F] rounded transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Body */}

@@ -1346,7 +1346,7 @@
         "LUD-PLN-800040",
         "LUD-PLN-800079"
       ],
-      "rating": 4.0,
+      "rating": 4,
       "state": "Punjab",
       "district": "Ludhiana"
     },
@@ -1766,7 +1766,7 @@
         "LUD-PLN-800022",
         "LUD-PLN-800086"
       ],
-      "rating": 4.0,
+      "rating": 4,
       "state": "Punjab",
       "district": "Ludhiana"
     },
@@ -2114,7 +2114,7 @@
         "LUD-PLN-800052",
         "LUD-PLN-800075"
       ],
-      "rating": 4.0,
+      "rating": 4,
       "state": "Punjab",
       "district": "Ludhiana"
     },
@@ -2432,7 +2432,7 @@
         "LUD-HIST-700136",
         "LUD-HIST-700279"
       ],
-      "rating": 4.0,
+      "rating": 4,
       "state": "Punjab",
       "district": "Ludhiana"
     },
@@ -2681,7 +2681,7 @@
         "LUD-HIST-700128",
         "LUD-PLN-800036"
       ],
-      "rating": 4.0,
+      "rating": 4,
       "state": "Punjab",
       "district": "Ludhiana"
     },
@@ -2855,7 +2855,7 @@
         "LUD-HIST-700198",
         "LUD-HIST-700256"
       ],
-      "rating": 4.0,
+      "rating": 4,
       "state": "Punjab",
       "district": "Ludhiana"
     },
@@ -28554,7 +28554,7 @@
       "status": "Planned",
       "dateAwarded": "2024-10-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-12-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-12-28T00:00:00.000Z",
       "tenderStage": "Administrative Sanction Accorded",
       "location": "Libra, Khanna",
       "primaryContractor": "Balraj Yadav",
@@ -28704,7 +28704,7 @@
       "status": "Planned",
       "dateAwarded": "2024-02-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-08-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-08-28T00:00:00.000Z",
       "tenderStage": "Tender Floated",
       "location": "Sherpur Kalan, Ludhiana South",
       "primaryContractor": "LUDHIANA MUNICIPAL INFRA CORP",
@@ -29094,7 +29094,7 @@
       "status": "Planned",
       "dateAwarded": "2024-08-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-09-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-09-28T00:00:00.000Z",
       "tenderStage": "Tender Floated",
       "location": "Ward 4, Ludhiana North",
       "primaryContractor": "LUDHIANA MUNICIPAL INFRA CORP",
@@ -29154,7 +29154,7 @@
       "status": "Planned",
       "dateAwarded": "2024-03-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-06-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-06-28T00:00:00.000Z",
       "tenderStage": "DPR Approved",
       "location": "PAU Campus Area, Ludhiana West",
       "primaryContractor": "TARSEM SINGH",
@@ -29544,7 +29544,7 @@
       "status": "Planned",
       "dateAwarded": "2025-03-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-05-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-05-28T00:00:00.000Z",
       "tenderStage": "DPR Approved",
       "location": "Ward 35, Ludhiana South",
       "primaryContractor": "AMAR INFRASTRUCTURE LUDHIANA",
@@ -30084,7 +30084,7 @@
       "status": "Planned",
       "dateAwarded": "2024-09-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-05-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-05-28T00:00:00.000Z",
       "tenderStage": "DPR Approved",
       "location": "Jugiana, Sahnewal",
       "primaryContractor": "Sahil Precast",
@@ -30234,7 +30234,7 @@
       "status": "Planned",
       "dateAwarded": "2024-05-15T00:00:00.000Z",
       "dateCompleted": null,
-      "plannedCompletionDate": "2027-03-28T00:00:00.000Z",
+      "plannedCompletionDate": "2026-03-28T00:00:00.000Z",
       "tenderStage": "Work Order Under Finalization",
       "location": "Jawaddi, Gill",
       "primaryContractor": "Kulwinder Singh",

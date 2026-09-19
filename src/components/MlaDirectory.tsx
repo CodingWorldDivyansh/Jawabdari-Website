@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Users, MapPin, ChevronRight, Briefcase, HardHat } from 'lucide-react';
+import { Users, MapPin, ChevronRight, Briefcase, HardHat, Download } from 'lucide-react';
 import { Dataset, MLA } from '@/lib/types';
 import { formatRupee } from '@/lib/formatters';
 import { MlaModal } from './MlaModal';
+import { SourcesBanner } from './SourcesBanner';
+import { ExportModal } from './ExportModal';
 
 interface MlaDirectoryProps {
   dataset: Dataset;
@@ -15,6 +17,7 @@ export const MlaDirectory: React.FC<MlaDirectoryProps> = ({ dataset }) => {
   const [partyFilter, setPartyFilter] = useState('all');
   const [sortBy, setSortBy] = useState<'projects' | 'budget' | 'utilization'>('projects');
   const [selectedMla, setSelectedMla] = useState<MLA | null>(null);
+  const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
 
   const parties = useMemo(() => {
     return Array.from(new Set(dataset.mlas.map(m => m.party))).sort();
@@ -60,6 +63,12 @@ export const MlaDirectory: React.FC<MlaDirectoryProps> = ({ dataset }) => {
 
   return (
     <div className="max-w-6xl mx-auto">
+      {/* 0. Official Sources & Audit Banner */}
+      <SourcesBanner
+        totalProjects={dataset.projects.length}
+        totalContractors={dataset.contractors.length}
+      />
+
       {/* 1. Uniform Header */}
       <div className="track-area-header">
         <div className="header-icon">
@@ -98,7 +107,16 @@ export const MlaDirectory: React.FC<MlaDirectoryProps> = ({ dataset }) => {
           </div>
         </div>
 
-        <div className="form-actions">
+        <div className="form-actions flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onClick={() => setIsExportModalOpen(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] hover:bg-[#E56E00] transition-colors shadow-sm cursor-pointer"
+            title="Export MLAs directory data"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export MLAs ({filteredMlas.length})</span>
+          </button>
           <button
             type="button"
             onClick={handleResetFilters}
@@ -241,6 +259,13 @@ export const MlaDirectory: React.FC<MlaDirectoryProps> = ({ dataset }) => {
           onClose={() => setSelectedMla(null)}
         />
       )}
+
+      {/* Export Modal */}
+      <ExportModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        dataset={dataset}
+      />
     </div>
   );
 };

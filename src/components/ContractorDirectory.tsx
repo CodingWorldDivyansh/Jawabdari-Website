@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { HardHat, MapPin, ChevronRight, Star, CheckCircle, Clock } from 'lucide-react';
+import { HardHat, MapPin, ChevronRight, Star, CheckCircle, Clock, Download } from 'lucide-react';
 import { Dataset, Contractor } from '@/lib/types';
 import { formatRupee } from '@/lib/formatters';
 import { ContractorModal } from './ContractorModal';
+import { SourcesBanner } from './SourcesBanner';
+import { ExportModal } from './ExportModal';
 
 interface ContractorDirectoryProps {
   dataset: Dataset;
@@ -14,7 +16,9 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
   const [search, setSearch] = useState('');
   const [specialtyFilter, setSpecialtyFilter] = useState('all');
   const [sortBy, setSortBy] = useState<'projects' | 'value' | 'rating'>('projects');
+  const [activeTab, setActiveTab] = useState<'all' | 'value' | 'projects' | 'rating'>('all');
   const [selectedContractor, setSelectedContractor] = useState<Contractor | null>(null);
+  const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
 
   const specialties = useMemo(() => {
     return Array.from(new Set(dataset.contractors.map(c => c.specialty))).sort();
@@ -50,10 +54,17 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
     setSearch('');
     setSpecialtyFilter('all');
     setSortBy('projects');
+    setActiveTab('all');
   };
 
   return (
     <div className="max-w-6xl mx-auto">
+      {/* 0. Official Sources & Audit Banner */}
+      <SourcesBanner
+        totalProjects={dataset.projects.length}
+        totalContractors={dataset.contractors.length}
+      />
+
       {/* 1. Uniform Header */}
       <div className="track-area-header">
         <div className="header-icon">
@@ -92,7 +103,16 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
           </div>
         </div>
 
-        <div className="form-actions">
+        <div className="form-actions flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onClick={() => setIsExportModalOpen(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] hover:bg-[#E56E00] transition-colors shadow-sm cursor-pointer"
+            title="Export Contractors directory data"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export Contractors ({filteredContractors.length})</span>
+          </button>
           <button
             type="button"
             onClick={handleResetFilters}
@@ -109,29 +129,29 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
           <div className="project-tabs">
             <button
               type="button"
-              onClick={() => { setSpecialtyFilter('all'); setSortBy('projects'); }}
-              className={`tab-btn ${specialtyFilter === 'all' && sortBy === 'projects' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('all'); setSpecialtyFilter('all'); setSortBy('projects'); }}
+              className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
             >
               All Contractors ({dataset.contractors.length})
             </button>
             <button
               type="button"
-              onClick={() => { setSortBy('value'); }}
-              className={`tab-btn ${sortBy === 'value' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('value'); setSortBy('value'); }}
+              className={`tab-btn ${activeTab === 'value' ? 'active' : ''}`}
             >
               Highest Value Awarded
             </button>
             <button
               type="button"
-              onClick={() => { setSortBy('projects'); }}
-              className={`tab-btn ${sortBy === 'projects' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('projects'); setSortBy('projects'); }}
+              className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
             >
               Most Works Executed
             </button>
             <button
               type="button"
-              onClick={() => { setSortBy('rating'); }}
-              className={`tab-btn ${sortBy === 'rating' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('rating'); setSortBy('rating'); }}
+              className={`tab-btn ${activeTab === 'rating' ? 'active' : ''}`}
             >
               Top Rated
             </button>
@@ -241,6 +261,13 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
           onClose={() => setSelectedContractor(null)}
         />
       )}
+
+      {/* Export Modal */}
+      <ExportModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        dataset={dataset}
+      />
     </div>
   );
 };

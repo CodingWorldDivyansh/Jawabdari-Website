@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Star } from 'lucide-react';
+import { X, Star, Download } from 'lucide-react';
 import { Contractor, Project } from '@/lib/types';
 import { formatRupee, formatDate } from '@/lib/formatters';
+import { exportProjectsToCSV } from '@/lib/store';
 
 interface ContractorModalProps {
   contractor: Contractor | null;
@@ -28,14 +29,19 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
     p.primaryContractor === contractor.name || p.contractors.includes(contractor.name)
   );
   
-  const filteredProjects = activeTab === 'all'
-    ? contractorProjects
+  const filteredProjects = activeTab === 'all' 
+    ? contractorProjects 
     : contractorProjects.filter(p => p.status === activeTab);
+
+  const handleExportContractorWorks = () => {
+    const slug = contractor.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    exportProjectsToCSV(contractorProjects, `jawabdari_contractor_${slug}_works_${new Date().toISOString().split('T')[0]}.csv`);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
       <div 
-        className="relative w-full max-w-2xl bg-white rounded-lg shadow-xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-2xl bg-white rounded-lg shadow-xl border border-[#E6EAF0] overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -50,12 +56,22 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
             </div>
             <p className="text-xs text-[#0B1B2F]/60 mt-0.5">{contractor.specialty} • {contractor.district}, {contractor.state}</p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1 text-[#0B1B2F]/50 hover:text-[#0B1B2F] rounded transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleExportContractorWorks}
+              className="inline-flex items-center space-x-1 px-2.5 py-1 text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] rounded hover:bg-[#e66e00] transition-colors cursor-pointer shadow-xs"
+              title="Download all works for this contractor as CSV"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Export Works ({contractorProjects.length})</span>
+            </button>
+            <button
+              onClick={onClose}
+              className="p-1 text-[#0B1B2F]/50 hover:text-[#0B1B2F] rounded transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Body */}

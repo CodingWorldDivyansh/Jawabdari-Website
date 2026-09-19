@@ -3,14 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Plus, Download, MapPin, Users, HardHat } from 'lucide-react';
+import { Download, MapPin, Users, HardHat } from 'lucide-react';
 
 interface NavbarProps {
-  onOpenAddModal?: () => void;
   onExportCsv?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenAddModal, onExportCsv }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onExportCsv }) => {
   const pathname = usePathname();
 
   const navItems = [
@@ -61,21 +60,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAddModal, onExportCsv }) =
             {onExportCsv && (
               <button
                 onClick={onExportCsv}
-                className="hidden sm:inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-[#0B1B2F] bg-white border border-[#E6EAF0] rounded-lg hover:bg-[#FAF7F2] transition-colors shadow-xs cursor-pointer"
-                title="Export to CSV"
+                className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] rounded-lg hover:bg-[#E56E00] transition-colors shadow-xs cursor-pointer"
+                title="Export data to CSV"
               >
-                <Download className="w-3.5 h-3.5 text-[#0B1B2F]/60" />
-                <span>Export</span>
-              </button>
-            )}
-
-            {onOpenAddModal && (
-              <button
-                onClick={onOpenAddModal}
-                className="inline-flex items-center space-x-1 px-3.5 py-1.5 text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] rounded-lg hover:bg-[#e66e00] transition-colors shadow-xs cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Add Record</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>Export Data</span>
               </button>
             )}
           </div>
