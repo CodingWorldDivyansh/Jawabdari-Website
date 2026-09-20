@@ -42,7 +42,7 @@ export const MlaModal: React.FC<MlaModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-5 py-4 border-b border-[#E6EAF0]">
+        <div className="flex flex-wrap items-start justify-between gap-2 px-4 sm:px-5 py-4 border-b border-[#E6EAF0]">
           <div>
             <span className="text-[10px] uppercase font-bold text-[#0B1B2F]/60 tracking-wider">
               {mla.constituency} Constituency • {mla.party}
@@ -57,7 +57,8 @@ export const MlaModal: React.FC<MlaModalProps> = ({
               title="Download all works for this MLA as CSV"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Export Works ({mlaProjects.length})</span>
+              <span className="hidden sm:inline">Export Works ({mlaProjects.length})</span>
+              <span className="sm:hidden">Export ({mlaProjects.length})</span>
             </button>
             <button
               onClick={onClose}
@@ -69,9 +70,9 @@ export const MlaModal: React.FC<MlaModalProps> = ({
         </div>
 
         {/* Body */}
-        <div className="p-5 overflow-y-auto space-y-5 text-xs">
+        <div className="p-4 sm:p-5 overflow-y-auto space-y-5 text-xs">
           {/* Key Metrics */}
-          <div className="border border-[#E6EAF0] rounded p-3 grid grid-cols-5 gap-2 text-left bg-[#FAF7F2]/40">
+          <div className="border border-[#E6EAF0] rounded p-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-left bg-[#FAF7F2]/40">
             <div>
               <span className="block text-[10px] text-[#0B1B2F]/60 uppercase">Total Works</span>
               <span className="text-base font-bold text-[#0B1B2F]">{mla.totalProjects}</span>
@@ -120,7 +121,7 @@ export const MlaModal: React.FC<MlaModalProps> = ({
               <span className="text-[10px] uppercase font-bold text-[#0B1B2F]/60 tracking-wider">
                 Projects ({filteredProjects.length})
               </span>
-              <div className="flex space-x-2 text-[11px]">
+              <div className="flex flex-wrap gap-x-2 gap-y-1 text-[11px]">
                 {(['all', 'Planned', 'In Progress', 'Completed'] as const).map(tab => (
                   <button
                     key={tab}
@@ -140,9 +141,9 @@ export const MlaModal: React.FC<MlaModalProps> = ({
                 <div
                   key={p.id}
                   onClick={() => onSelectProject && onSelectProject(p)}
-                  className="p-3 hover:bg-[#FAF7F2] cursor-pointer flex items-start justify-between gap-3 transition-colors"
+                  className="p-3 hover:bg-[#FAF7F2] cursor-pointer flex flex-wrap items-start justify-between gap-3 transition-colors"
                 >
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-medium text-[#0B1B2F] line-clamp-1">{p.title}</p>
                     <div className="text-[11px] text-slate-500 mt-0.5">
                       <span>{p.category}</span> • <span>Contractor: {p.primaryContractor}</span> • <span>Awarded: {formatDate(p.dateAwarded)}</span>

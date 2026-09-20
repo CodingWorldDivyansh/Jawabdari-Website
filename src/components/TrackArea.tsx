@@ -286,7 +286,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
 
         {/* Filters Toolbar */}
         <div className="project-filters">
-          <div className="filters-header">
+          <div className="filters-header flex-wrap">
             <button
               type="button"
               onClick={() => setShowFiltersPanel(!showFiltersPanel)}
@@ -312,7 +312,7 @@ export const TrackArea: React.FC<TrackAreaProps> = ({ dataset }) => {
             <button
               type="button"
               onClick={() => setIsExportModalOpen(true)}
-              className="export-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] hover:bg-[#E56E00] transition-colors shrink-0 shadow-sm ml-auto cursor-pointer"
+              className="export-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#0B1B2F] bg-[#FF7A00] hover:bg-[#E56E00] transition-colors shrink-0 shadow-sm ml-auto cursor-pointer max-sm:w-full max-sm:justify-center"
               title="Export filtered or custom works data"
             >
               <Download className="w-3.5 h-3.5" />

@@ -88,7 +88,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
         <div className="p-5 overflow-y-auto space-y-4 text-xs">
           {/* Option 1: Current Filtered View (if applicable) */}
           {isFiltered && (
-            <div className="p-3.5 rounded-lg border border-[#FF7A00]/30 bg-[#FF7A00]/5 flex items-center justify-between gap-3">
+            <div className="p-3.5 rounded-lg border border-[#FF7A00]/30 bg-[#FF7A00]/5 flex items-center justify-between max-sm:flex-col max-sm:items-stretch gap-3">
               <div>
                 <div className="flex items-center space-x-1.5 text-[#0B1B2F] font-semibold text-xs">
                   <Filter className="w-3.5 h-3.5 text-[#FF7A00]" />
@@ -100,7 +100,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
               </div>
               <button
                 onClick={handleExportFiltered}
-                className="px-3 py-1.5 bg-[#FF7A00] hover:bg-[#e66e00] text-[#0B1B2F] font-semibold rounded text-xs transition-colors shadow-xs cursor-pointer shrink-0 flex items-center space-x-1"
+                className="px-3 py-1.5 bg-[#FF7A00] hover:bg-[#e66e00] text-[#0B1B2F] font-semibold rounded text-xs transition-colors shadow-xs cursor-pointer shrink-0 flex items-center space-x-1 max-sm:w-full max-sm:justify-center"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Export ({activeProjects.length})</span>
@@ -117,7 +117,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
             <p className="text-[11px] text-[#0B1B2F]/60 mb-2.5">
               Select an MLA to download their complete project allocations, tender stages, and payment history.
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center max-sm:flex-col max-sm:items-stretch gap-2">
               <select
                 value={selectedMla}
                 onChange={(e) => setSelectedMla(e.target.value)}
@@ -131,7 +131,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
               </select>
               <button
                 onClick={handleExportSpecificMla}
-                className="px-3 py-2 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1"
+                className="px-3 py-2 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1 max-sm:w-full max-sm:justify-center"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download</span>
@@ -140,7 +140,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           </div>
 
           {/* Option 3: All Public Works */}
-          <div className="p-3.5 rounded-lg border border-[#E6EAF0] hover:border-[#0B1B2F]/30 transition-colors flex items-center justify-between gap-3">
+          <div className="p-3.5 rounded-lg border border-[#E6EAF0] hover:border-[#0B1B2F]/30 transition-colors flex items-center justify-between max-sm:flex-col max-sm:items-stretch gap-3">
             <div>
               <div className="flex items-center space-x-1.5 text-[#0B1B2F] font-semibold text-xs">
                 <FileSpreadsheet className="w-3.5 h-3.5 text-[#0B1B2F]/70" />
@@ -152,7 +152,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
             </div>
             <button
               onClick={handleExportAll}
-              className="px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1"
+              className="px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1 max-sm:w-full max-sm:justify-center"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export All</span>
@@ -160,7 +160,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           </div>
 
           {/* Option 4: MLAs Directory */}
-          <div className="p-3.5 rounded-lg border border-[#E6EAF0] hover:border-[#0B1B2F]/30 transition-colors flex items-center justify-between gap-3">
+          <div className="p-3.5 rounded-lg border border-[#E6EAF0] hover:border-[#0B1B2F]/30 transition-colors flex items-center justify-between max-sm:flex-col max-sm:items-stretch gap-3">
             <div>
               <div className="flex items-center space-x-1.5 text-[#0B1B2F] font-semibold text-xs">
                 <Users className="w-3.5 h-3.5 text-[#0B1B2F]/70" />
@@ -172,7 +172,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
             </div>
             <button
               onClick={handleExportMlas}
-              className="px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1"
+              className="px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1 max-sm:w-full max-sm:justify-center"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export CSV</span>
@@ -180,7 +180,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
           </div>
 
           {/* Option 5: Contractors Directory */}
-          <div className="p-3.5 rounded-lg border border-[#E6EAF0] hover:border-[#0B1B2F]/30 transition-colors flex items-center justify-between gap-3">
+          <div className="p-3.5 rounded-lg border border-[#E6EAF0] hover:border-[#0B1B2F]/30 transition-colors flex items-center justify-between max-sm:flex-col max-sm:items-stretch gap-3">
             <div>
               <div className="flex items-center space-x-1.5 text-[#0B1B2F] font-semibold text-xs">
                 <HardHat className="w-3.5 h-3.5 text-[#0B1B2F]/70" />
@@ -192,7 +192,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
             </div>
             <button
               onClick={handleExportContractors}
-              className="px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1"
+              className="px-3 py-1.5 bg-white hover:bg-[#FAF7F2] border border-[#E6EAF0] text-[#0B1B2F] font-semibold rounded text-xs transition-colors cursor-pointer shrink-0 flex items-center space-x-1 max-sm:w-full max-sm:justify-center"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export CSV</span>

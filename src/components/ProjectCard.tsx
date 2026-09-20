@@ -82,21 +82,21 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {/* Footer: MLA and Contractor info + Payments button */}
       <div className="project-footer">
-        <div className="mp-info">
-          <div>
+        <div className="mp-info min-w-0">
+          <div className="min-w-0 break-words">
             <span>MLA: </span>
             <button
               onClick={() => onSelectMla(project.mla)}
-              className="font-semibold text-[#0B1B2F] hover:text-[#FF7A00] hover:underline text-left cursor-pointer"
+              className="font-semibold text-[#0B1B2F] hover:text-[#FF7A00] hover:underline text-left cursor-pointer break-words"
             >
               {project.mla}
             </button>
           </div>
-          <div>
+          <div className="min-w-0 break-words">
             <span>Contractor: </span>
             <button
               onClick={() => onSelectContractor(project.primaryContractor)}
-              className="text-[#0B1B2F]/80 hover:text-[#FF7A00] hover:underline text-left cursor-pointer font-medium"
+              className="text-[#0B1B2F]/80 hover:text-[#FF7A00] hover:underline text-left cursor-pointer font-medium break-words"
             >
               {project.primaryContractor}
             </button>

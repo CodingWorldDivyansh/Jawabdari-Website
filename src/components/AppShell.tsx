@@ -23,7 +23,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#0B1B2F]">
+    <div className="min-h-screen flex flex-col overflow-x-clip bg-[#FAF7F2] text-[#0B1B2F]">
       <Navbar
         onExportCsv={() => setIsExportModalOpen(true)}
       />

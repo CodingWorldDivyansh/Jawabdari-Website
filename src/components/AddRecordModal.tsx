@@ -288,7 +288,7 @@ export const AddRecordModal: React.FC<AddRecordModalProps> = ({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-medium text-[#0B1B2F] mb-1">Constituency *</label>
                   <select
@@ -316,7 +316,7 @@ export const AddRecordModal: React.FC<AddRecordModalProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-medium text-[#0B1B2F] mb-1">Cost (₹) *</label>
                   <input
@@ -344,7 +344,7 @@ export const AddRecordModal: React.FC<AddRecordModalProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-medium text-[#0B1B2F] mb-1">Contractor *</label>
                   <select
@@ -439,7 +439,7 @@ export const AddRecordModal: React.FC<AddRecordModalProps> = ({
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-medium text-[#0B1B2F] mb-1">Constituency *</label>
                   <input

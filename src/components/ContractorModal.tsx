@@ -45,7 +45,7 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-5 py-4 border-b border-[#E6EAF0]">
+        <div className="flex flex-wrap items-start justify-between gap-2 px-4 sm:px-5 py-4 border-b border-[#E6EAF0]">
           <div>
             <div className="flex items-center space-x-2">
               <h3 className="text-lg font-bold text-[#0B1B2F] leading-snug">{contractor.name}</h3>
@@ -63,7 +63,8 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
               title="Download all works for this contractor as CSV"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Export Works ({contractorProjects.length})</span>
+              <span className="hidden sm:inline">Export Works ({contractorProjects.length})</span>
+              <span className="sm:hidden">Export ({contractorProjects.length})</span>
             </button>
             <button
               onClick={onClose}
@@ -75,9 +76,9 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
         </div>
 
         {/* Body */}
-        <div className="p-5 overflow-y-auto space-y-5 text-xs">
+        <div className="p-4 sm:p-5 overflow-y-auto space-y-5 text-xs">
           {/* Key Metrics */}
-          <div className="border border-[#E6EAF0] rounded p-3 grid grid-cols-4 gap-2 text-left bg-[#FAF7F2]/40">
+          <div className="border border-[#E6EAF0] rounded p-3 grid grid-cols-2 lg:grid-cols-4 gap-2 text-left bg-[#FAF7F2]/40">
             <div>
               <span className="block text-[10px] text-[#0B1B2F]/60 uppercase">Total Works</span>
               <span className="text-base font-bold text-[#0B1B2F]">{contractor.totalProjects}</span>
@@ -97,7 +98,7 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
           </div>
 
           {/* Constituencies & MLAs */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <span className="block text-[10px] uppercase font-bold text-[#0B1B2F]/60 tracking-wider mb-1.5">
                 Constituencies
@@ -130,7 +131,7 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
               <span className="text-[10px] uppercase font-bold text-[#0B1B2F]/60 tracking-wider">
                 Works Portfolio ({filteredProjects.length})
               </span>
-              <div className="flex space-x-2 text-[11px]">
+              <div className="flex flex-wrap gap-x-2 gap-y-1 text-[11px]">
                 {(['all', 'Planned', 'In Progress', 'Completed'] as const).map(tab => (
                   <button
                     key={tab}
@@ -150,9 +151,9 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
                 <div
                   key={p.id}
                   onClick={() => onSelectProject && onSelectProject(p)}
-                  className="p-3 hover:bg-[#FAF7F2] cursor-pointer flex items-start justify-between gap-3 transition-colors"
+                  className="p-3 hover:bg-[#FAF7F2] cursor-pointer flex flex-wrap items-start justify-between gap-3 transition-colors"
                 >
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-medium text-[#0B1B2F] line-clamp-1">{p.title}</p>
                     <div className="text-[11px] text-slate-500 mt-0.5">
                       <span>{p.category}</span> • <span>{p.assemblyConstituency}</span> • <span>Awarded: {formatDate(p.dateAwarded)}</span>

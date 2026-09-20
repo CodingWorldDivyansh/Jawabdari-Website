@@ -107,7 +107,7 @@ export const MlaDirectory: React.FC<MlaDirectoryProps> = ({ dataset }) => {
           </div>
         </div>
 
-        <div className="form-actions flex items-center justify-end gap-3">
+        <div className="form-actions flex flex-wrap items-center justify-end gap-3">
           <button
             type="button"
             onClick={() => setIsExportModalOpen(true)}
@@ -115,7 +115,8 @@ export const MlaDirectory: React.FC<MlaDirectoryProps> = ({ dataset }) => {
             title="Export MLAs directory data"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>Export MLAs ({filteredMlas.length})</span>
+            <span className="hidden sm:inline">Export MLAs ({filteredMlas.length})</span>
+            <span className="sm:hidden">Export</span>
           </button>
           <button
             type="button"

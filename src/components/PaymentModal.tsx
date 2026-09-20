@@ -27,7 +27,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ project, onClose }) 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-slate-200 bg-white">
           <h3 className="text-lg font-bold text-slate-900 font-sans">Payment Details</h3>
           <button
             onClick={onClose}

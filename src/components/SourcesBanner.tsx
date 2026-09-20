@@ -76,7 +76,8 @@ export const SourcesBanner: React.FC<SourcesBannerProps> = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="inline-flex items-center space-x-1 text-[#0B1B2F] hover:text-[#FF7A00] font-medium transition-colors cursor-pointer text-xs"
         >
-          <span>{isExpanded ? 'Hide Sources & Methodology' : 'View Official Sources & Audit'}</span>
+          <span className="hidden sm:inline">{isExpanded ? 'Hide Sources & Methodology' : 'View Official Sources & Audit'}</span>
+          <span className="sm:hidden">{isExpanded ? 'Hide' : 'Sources'}</span>
           {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
       </div>

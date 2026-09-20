@@ -103,7 +103,7 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
           </div>
         </div>
 
-        <div className="form-actions flex items-center justify-end gap-3">
+        <div className="form-actions flex flex-wrap items-center justify-end gap-3">
           <button
             type="button"
             onClick={() => setIsExportModalOpen(true)}
@@ -111,7 +111,8 @@ export const ContractorDirectory: React.FC<ContractorDirectoryProps> = ({ datase
             title="Export Contractors directory data"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>Export Contractors ({filteredContractors.length})</span>
+            <span className="hidden sm:inline">Export Contractors ({filteredContractors.length})</span>
+            <span className="sm:hidden">Export</span>
           </button>
           <button
             type="button"
