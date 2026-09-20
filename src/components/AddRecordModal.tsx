@@ -217,11 +217,11 @@ export const AddRecordModal: React.FC<AddRecordModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-black/50 backdrop-blur-xs"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-lg bg-white rounded-lg shadow-xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative m-auto w-full max-w-lg bg-white rounded-lg shadow-xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -273,7 +273,7 @@ export const AddRecordModal: React.FC<AddRecordModalProps> = ({
         </div>
 
         {/* Form */}
-        <div className="p-5 overflow-y-auto text-xs">
+        <div className="min-h-0 overscroll-contain p-5 overflow-y-auto text-xs">
           {activeTab === 'project' && (
             <form onSubmit={handleAddProject} className="space-y-3">
               <div>

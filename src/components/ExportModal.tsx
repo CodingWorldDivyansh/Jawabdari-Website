@@ -58,11 +58,11 @@ export const ExportModal: React.FC<ExportModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-black/50 backdrop-blur-xs"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-lg bg-white rounded-lg shadow-xl border border-[#E6EAF0] overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative m-auto w-full max-w-lg bg-white rounded-lg shadow-xl border border-[#E6EAF0] overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -85,7 +85,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-5 overflow-y-auto space-y-4 text-xs">
+        <div className="min-h-0 overscroll-contain p-5 overflow-y-auto space-y-4 text-xs">
           {/* Option 1: Current Filtered View (if applicable) */}
           {isFiltered && (
             <div className="p-3.5 rounded-lg border border-[#FF7A00]/30 bg-[#FF7A00]/5 flex items-center justify-between max-sm:flex-col max-sm:items-stretch gap-3">

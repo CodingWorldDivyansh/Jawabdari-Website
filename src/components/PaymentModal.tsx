@@ -19,11 +19,11 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ project, onClose }) 
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-black/50 backdrop-blur-xs"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-3xl bg-white rounded-lg shadow-xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative m-auto w-full max-w-3xl bg-white rounded-lg shadow-xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -38,7 +38,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ project, onClose }) 
         </div>
 
         {/* Modal Body */}
-        <div className="payment-modal-body overflow-y-auto">
+        <div className="payment-modal-body min-h-0 overscroll-contain overflow-y-auto">
           {/* Work Info */}
           <div className="work-info">
             <h4>Work Information</h4>
@@ -91,7 +91,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ project, onClose }) 
           {/* Payment Timeline */}
           <div className="payment-timeline">
             <h4>Payment Timeline</h4>
-            <div className="timeline-container">
+            <div className="timeline-container overscroll-contain [-webkit-overflow-scrolling:touch] [touch-action:pan-y]">
               {installments.length > 0 ? (
                 installments.map((inst, idx) => (
                   <div key={idx} className="timeline-item">

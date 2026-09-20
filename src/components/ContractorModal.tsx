@@ -39,9 +39,9 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-black/40 backdrop-blur-xs">
       <div 
-        className="relative w-full max-w-2xl bg-white rounded-lg shadow-xl border border-[#E6EAF0] overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative m-auto w-full max-w-2xl bg-white rounded-lg shadow-xl border border-[#E6EAF0] overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -76,7 +76,7 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
         </div>
 
         {/* Body */}
-        <div className="p-4 sm:p-5 overflow-y-auto space-y-5 text-xs">
+        <div className="min-h-0 overscroll-contain p-4 sm:p-5 overflow-y-auto space-y-5 text-xs">
           {/* Key Metrics */}
           <div className="border border-[#E6EAF0] rounded p-3 grid grid-cols-2 lg:grid-cols-4 gap-2 text-left bg-[#FAF7F2]/40">
             <div>
@@ -146,7 +146,7 @@ export const ContractorModal: React.FC<ContractorModalProps> = ({
               </div>
             </div>
 
-            <div className="border border-[#E6EAF0] rounded divide-y divide-[#E6EAF0] max-h-64 overflow-y-auto">
+            <div className="border border-[#E6EAF0] rounded divide-y divide-[#E6EAF0] max-h-64 overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch] [touch-action:pan-y]">
               {filteredProjects.map(p => (
                 <div
                   key={p.id}

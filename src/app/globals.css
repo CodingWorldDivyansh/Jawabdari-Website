@@ -840,6 +840,9 @@ h1, h2, h3, h4, h5, h6 {
 .timeline-container {
   max-height: 360px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   border: 1px solid var(--mist);
   border-radius: 8px;
 }
